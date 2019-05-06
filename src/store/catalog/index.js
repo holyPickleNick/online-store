@@ -7,7 +7,8 @@ const state = [
             url: "https://www.inrent.com.au/siteassets/product/tp501uqdn081t_1_med---cpq2dn081t.png",
             alt: "Buy it"
         },
-        price: 999.9
+        price: 999.9,
+        available: false
     },
     {
         id: 2,
@@ -17,7 +18,8 @@ const state = [
             url: "https://amp.businessinsider.com/images/5b7c167a04f16230008b53a8-750-375.png",
             alt: "Don't buy it"
         },
-        price: 1399.99
+        price: 1399.99,
+        available: true
     },
     {
         id: 3,
@@ -27,7 +29,8 @@ const state = [
             url: "https://c.s-microsoft.com/en-us/CMSImages/SurfaceHome_Lg_ImagePanel_4_new_V4.png?version=6f9932e4-fc69-3b60-277b-844827f84e44",
             alt: "Bit expensive..."
         },
-        price: 2999.99
+        price: 2999.99,
+        available: true
     },
     {
         id: 4,
@@ -37,7 +40,8 @@ const state = [
             url: "https://c.s-microsoft.com/en-th/CMSImages/SurfaceHome_HL_ImagePanel_1_Pro6_Platinum_V4.png?version=333f9f40-297f-9b4c-cfc7-e18f0cf6e06b",
             alt: "Shiiiinyyy"
         },
-        price: 799.99
+        price: 799.99,
+        available: false
     },
     {
         id: 5,
@@ -47,7 +51,8 @@ const state = [
             url: "https://img.purch.com/rc/673x433/aHR0cHM6Ly93d3cubGFwdG9wbWFnLmNvbS9pbWFnZXMvdXBsb2Fkcy81NTkzL2cvbGhwLXNwZWN0cmUtZm9saW8tMDEwLmpwZw==",
             alt: "lol"
         },
-        price: 1000.30
+        price: 1000.30,
+        available: true
     },
     {
         id: 6,
@@ -57,7 +62,8 @@ const state = [
             url: "https://amp.businessinsider.com/images/5b50ab4101180c3f008b46cc-750-563.jpg",
             alt: "Expensive"
         },
-        price: 3300.00
+        price: 3300.00,
+        available: true
     },
     {
         id: 7,
@@ -67,7 +73,8 @@ const state = [
             url: "https://icdn2.digitaltrends.com/image/dell-xps-13-screen-screen1_1.jpg",
             alt: "Nice screen"
         },
-        price: 1500.00
+        price: 1500.00,
+        available: true
     },
     {
         id: 8,
@@ -77,7 +84,8 @@ const state = [
             url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOzZD8-SXs8A6nCmFp0J4nlN9_q8R2uxN7yqnHMI_URV_-wZjO",
             alt: "its an imac"
         },
-        price: 4000.00
+        price: 4000.00,
+        available: true
     },
     {
         id: 9,
@@ -87,7 +95,8 @@ const state = [
             url: "https://www.rentacenter.com/medias/100025460-01-300.jpg?context=bWFzdGVyfGltYWdlc3wxMDAyOHxpbWFnZS9qcGVnfHN5cy1tYXN0ZXIvaW1hZ2VzL2g1ZS9oOWMvOTM0NzQzNjQ0NTcyNi8xMDAwMjU0NjBfMDFfMzAwLmpwZ3wyODJkMDI4MjFmMzkwYjMxMTA0MmYyYjM2YWE1YTAyNTBkMjk1YzhlMmVjNjU4ZWU3NjFmNjhkYmYzNzc4YjFh",
             alt: "That's a long url"
         },
-        price: 200.00
+        price: 200.00,
+        available: false
     },
     {
         id: 10,
@@ -97,7 +106,8 @@ const state = [
             url: "https://www.apple.com/v/imac/h/images/meta/og__f6ewkzfr71qy_image.png?201904172148",
             alt: "hi"
         },
-        price: 7000.00
+        price: 7000.00,
+        available: false
     },
     {
         id: 11,
@@ -107,7 +117,8 @@ const state = [
             url: "https://i.dell.com/sites/imagecontent/app-merchandizing/responsive/LearnSegment/alienware/assets/en/PublishingImages/alienware_images/2195-alienware_area-51_aw-17_homepage_tile-534x360.jpg",
             alt: "Its an alienware desktop"
         },
-        price: 3000.00
+        price: 3000.00,
+        available: true
     },
     {
         id: 12,
@@ -117,7 +128,8 @@ const state = [
             url: "https://images.wisegeek.com/computer-tower-monitor-keyboard-and-mouse.jpg",
             alt: "Computer tower monitor keyboard and mouse"
         },
-        price: 600.00
+        price: 600.00,
+        available: false
     }
 ];
 

@@ -13,7 +13,9 @@
        </b-card-text>
 
        <slot>
-           <b-button>{{ $n(item.price, "currency") }}</b-button>
+           <router-link :to="{ name: 'item_view', params: { id: item.id } }">
+               <b-button>{{ $n(item.price, "currency") }}</b-button>
+           </router-link>
        </slot> 
     </b-card>
 </template>
