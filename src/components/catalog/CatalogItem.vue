@@ -1,49 +1,54 @@
 <template>
-    <b-card
-        :title="item.name"
-        :img-src="imageUrl"
-        :img-alt="imageAlt"
-        img-top
-        tag="article"
-        style="max-width: 20rem;"
-        class="mb-2"
-    >
-       <b-card-text>
-            {{ item.description }}
-       </b-card-text>
+  <b-card
+    :title="item.name"
+    :img-src="imageUrl"
+    :img-alt="imageAlt"
+    img-top
+    tag="article"
+    style="max-width: 20rem;"
+    class="mb-2"
+  >
+    <b-card-text>{{ item.description }}</b-card-text>
 
-       <slot>
-           <router-link :to="{ name: 'item_view', params: { id: item.id } }">
-               <b-button>{{ $n(item.price, "currency") }}</b-button>
-           </router-link>
-       </slot> 
-    </b-card>
+    <slot>
+      <router-link :to="{ name: 'item_view', params: { id: item.id } }">
+        <b-button
+          :variant="buttonVariant"
+          :disabled="!item.available"
+        >{{ $n(item.price, "currency") }}</b-button>
+      </router-link>
+    </slot>
+  </b-card>
 </template>
 
 <script>
 export default {
-    name: "CatalogItem",
-    props: {
-        item: {
-            type: Object,
-            required: true
-        }
-    },
-    computed: {
-        imageUrl() {
-            if (this.item.image) {
-                return this.item.image.url;
-            }
-        },
-        imageAlt() {
-            if (this.item.image) {
-                return this.item.image.alt;
-            }
-        }
+  name: "CatalogItem",
+  props: {
+    item: {
+      type: Object,
+      required: true
     }
-}
+  },
+  computed: {
+    imageUrl() {
+      if (this.item.image) {
+        return this.item.image.url;
+      }
+    },
+    imageAlt() {
+      if (this.item.image) {
+        return this.item.image.alt;
+      }
+    },
+    buttonVariant() {
+      if (this.item.available) {
+        return "outline-primary";
+      }
+    }
+  }
+};
 </script>
 
 <style>
-
 </style>
