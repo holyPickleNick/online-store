@@ -19,7 +19,7 @@
 import Popup from "../components/Popup";
 import { createNamespacedHelpers } from "vuex";
 
-const { mapState, mapGetters, mapActions } = createNamespacedHelpers("catalog");
+const { mapState, mapGetters, mapActions } = createNamespacedHelpers("item");
 
 export default {
     name: "Item",
@@ -44,11 +44,7 @@ export default {
                 if (this.neverLoaded) {
                     return null;
                 } else if (this.loaded && catalog.data) {
-                    const found = catalog.data.filter(item => item.id.toString() === this.id.toString());
-
-                    if (found.length) {
-                        return found[0];
-                    }
+                    return catalog.data;
                 }
 
                 this.$router.push({
@@ -95,7 +91,7 @@ export default {
     },
     async mounted() {
         if (this.neverLoaded) {
-            return this.load();
+            return this.load(this.id);
         }
     }
 }

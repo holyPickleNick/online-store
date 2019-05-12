@@ -139,16 +139,21 @@ function resolveAfterDelay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-export async function fetchData() {
-    const delay = 2000 * Math.random();
-    const random = Math.random();
+export async function fetchData(id) {
+    const delay = 3000 * Math.random();
 
     await resolveAfterDelay(delay);
 
-    if (random < 0.7) {
-        return data;
+    if (id) {
+        const found = data.filter(result => result.id.toString() === id.toString());
+
+        if (found) {
+            return found[0];
+        }
     } else {
-        throw WebError("No data found", 404);
+        return data;
     }
+
+    throw WebError("No data found", 404);
 }
 

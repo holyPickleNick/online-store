@@ -1,17 +1,17 @@
-import { fetchData } from "./data";
-import WebError from "../../errors/WebError";
 import getters from "../getters";
 import { fetchMutations } from "../mutations";
+import { fetchData } from "../catalog/data";
+import WebError from "../../errors/WebError";
 import { getInitialState } from "../utils";
 
 const state = getInitialState();
 
 const actions = {
-    async load(store) {
+    async load(store, id) {
         store.commit('load');
 
         try {
-            const results = await fetchData();
+            const results = await fetchData(id);
 
             store.commit('success', results);
         } catch (error) {
@@ -32,4 +32,4 @@ export default {
     getters,
     mutations: fetchMutations,
     actions,
-};
+}
