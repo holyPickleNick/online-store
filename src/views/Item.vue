@@ -35,7 +35,7 @@ import Popup from "../components/Popup";
 import { createNamespacedHelpers } from "vuex";
 
 const { mapState, mapGetters: mapItemGetters, mapActions: mapItemActions } = createNamespacedHelpers("item");
-const { mapGetters: mapPurchaseGetters, mapActions: mapPurchaseActions } = createNamespacedHelpers("item/purchase");
+const { mapGetters: mapPurchaseGetters, mapActions: mapPurchaseActions, mapMutations } = createNamespacedHelpers("item/purchase");
 
 export default {
     name: "Item",
@@ -96,6 +96,7 @@ export default {
     methods: {
         ...mapItemActions(["load"]),
         ...mapPurchaseActions(["purchase"]),
+        ...mapMutations({ reset: "clear" }),
         async purchaseItem() {
             await this.purchase(this.id);
 
@@ -103,9 +104,9 @@ export default {
         }
     },
     async mounted() {
-        if (this.neverLoaded) {
-            return this.load(this.id);
-        }
+        this.reset();
+
+        return this.load(this.id);
     }
 }
 </script>

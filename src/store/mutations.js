@@ -1,3 +1,5 @@
+import { getInitialState } from "./utils";
+
 export const mutations = {
     load(state) {
         state.loading = true;
@@ -13,5 +15,12 @@ export const mutations = {
         state.loading = false;
         state.data = null;
         state.error = error;
+    },
+    clear(state) {
+        const initialState = getInitialState();
+
+        Object.keys(initialState).forEach(key => {
+            state[key] = initialState[key];
+        });
     }
 };
