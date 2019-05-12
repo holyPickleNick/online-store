@@ -27,7 +27,10 @@ export default {
     },
     item: {
         buttons: {
-            purchase: "I want it!"
+            loading: "Loading...",
+            purchase: "I want it!",
+            purchasing: "Purchasing...",
+            purchased: "Sold!"
         },
         popup: {
             success: {

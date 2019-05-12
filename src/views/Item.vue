@@ -6,10 +6,25 @@
         <h1>{{ item.name }} <b-badge variant="success">{{ $n(item.price, "currency") }}</b-badge></h1>
         <b-img :src="imageUrl" :alt="imageAlt" style="max-width: 20rem;"/>
         <p>{{ item.description }}</p>
-        <b-button @click="purchase" :disabled="attemptedPurchase">{{ $t("item.buttons.purchase") }}</b-button>
-        <popup :title="popupTitle" :visible="popupVisible">
+        <b-button @click="purchaseItem" :disabled="buttonDisabled">
+            <span v-if="loading">
+                <b-spinner small type="grow" />
+                {{ $t("item.buttons.loading") }}
+            </span>
+            <span v-else-if="purchasing">
+                <b-spinner small />
+                {{ $t("item.buttons.purchasing") }}
+            </span>
+            <span v-else-if="purchased">
+                {{ $t("item.buttons.purchased") }}
+            </span>
+            <span v-else>
+            {{ $t("item.buttons.purchase") }}
+            </span>
+        </b-button>
+        <popup :title="$t(`item.popup.success.title`)" :visible="popupVisible">
             <template #default>
-                {{ popupMessage }}
+                {{ $t(`item.popup.success.message`) }}
             </template>
         </popup>
     </b-container>
@@ -19,7 +34,8 @@
 import Popup from "../components/Popup";
 import { createNamespacedHelpers } from "vuex";
 
-const { mapState, mapGetters, mapActions } = createNamespacedHelpers("item");
+const { mapState, mapGetters: mapItemGetters, mapActions: mapItemActions } = createNamespacedHelpers("item");
+const { mapGetters: mapPurchaseGetters, mapActions: mapPurchaseActions } = createNamespacedHelpers("item/purchase");
 
 export default {
     name: "Item",
@@ -38,7 +54,8 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(["neverLoaded", "loading", "loaded"]),
+        ...mapItemGetters(["neverLoaded", "loading", "loaded"]),
+        ...mapPurchaseGetters({ purchasing: "loading", purchased: "success" }),
         ...mapState({
             item(catalog) {
                 if (this.neverLoaded) {
@@ -69,25 +86,21 @@ export default {
         soldOut() {
             return !this.item.available;
         },
-        popupTitle() {
-            const namespace = this.soldOut ? "soldOut" : "success";
-
-            return this.$t(`item.popup.${namespace}.title`);
-        },
-        popupMessage() {
-            const namespace = this.soldOut ? "soldOut" : "success";
-
-            return this.$t(`item.popup.${namespace}.message`);
-        },
         popupVisible() {
             return !!this.attemptedPurchase;
+        },
+        buttonDisabled() {
+            return this.loading || this.purchasing || this.soldOut;
         }
     },
     methods: {
-        ...mapActions(["load"]),
-        purchase() {
+        ...mapItemActions(["load"]),
+        ...mapPurchaseActions(["purchase"]),
+        async purchaseItem() {
+            await this.purchase(this.id);
+
             this.attemptedPurchase = true;
-        },
+        }
     },
     async mounted() {
         if (this.neverLoaded) {

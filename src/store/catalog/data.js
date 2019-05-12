@@ -157,3 +157,14 @@ export async function fetchData(id) {
     throw WebError("No data found", 404);
 }
 
+export async function updateData(id, mutation) {
+    const delay = 1000 * Math.random();
+    const found = await fetchData(id);
+
+    // Mutation function modifies data
+    mutation(found);
+
+    await resolveAfterDelay(delay);
+
+    return found;
+}

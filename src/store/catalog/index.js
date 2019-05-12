@@ -1,7 +1,7 @@
 import { fetchData } from "./data";
 import WebError from "../../errors/WebError";
 import getters from "../getters";
-import { fetchMutations } from "../mutations";
+import { mutations } from "../mutations";
 import { getInitialState } from "../utils";
 
 const state = getInitialState();
@@ -30,6 +30,6 @@ export default {
     namespaced: true,
     state,
     getters,
-    mutations: fetchMutations,
+    mutations,
     actions,
 };

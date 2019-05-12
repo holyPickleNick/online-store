@@ -1,4 +1,4 @@
-export const fetchMutations = {
+export const mutations = {
     load(state) {
         state.loading = true;
     },

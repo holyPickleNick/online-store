@@ -10,5 +10,8 @@ export default {
     },
     loaded(state) {
         return !state.neverLoaded && !state.loading && (state.data || state.error);
+    },
+    success(state) {
+        return !state.neverLoaded && !state.loading && state.data;
     }
 };
