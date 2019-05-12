@@ -1,9 +1,12 @@
 <template>
-    <b-container v-if="item">
+    <div v-if="loading" class="text-center">
+      <b-spinner variant="primary" :label="$t('catalog.loading')" />
+    </div>
+    <b-container v-else-if="item">
         <h1>{{ item.name }} <b-badge variant="success">{{ $n(item.price, "currency") }}</b-badge></h1>
         <b-img :src="imageUrl" :alt="imageAlt" style="max-width: 20rem;"/>
         <p>{{ item.description }}</p>
-        <b-button @click="purchase" :disabled="attemptedPurchase">I want it!</b-button>
+        <b-button @click="purchase" :disabled="attemptedPurchase">{{ $t("item.buttons.purchase") }}</b-button>
         <popup :title="popupTitle" :visible="popupVisible">
             <template #default>
                 {{ popupMessage }}
@@ -16,7 +19,7 @@
 import Popup from "../components/Popup";
 import { createNamespacedHelpers } from "vuex";
 
-const { mapState } = createNamespacedHelpers("catalog");
+const { mapState, mapGetters, mapActions } = createNamespacedHelpers("catalog");
 
 export default {
     name: "Item",
@@ -35,17 +38,22 @@ export default {
         }
     },
     computed: {
+        ...mapGetters(["neverLoaded", "loading", "loaded"]),
         ...mapState({
             item(catalog) {
-                const found = catalog.filter(item => item.id === this.id);
+                if (this.neverLoaded) {
+                    return null;
+                } else if (this.loaded && catalog.data) {
+                    const found = catalog.data.filter(item => item.id.toString() === this.id.toString());
 
-                if (found.length) {
-                    return found[0];
-                } else {
-                    this.$router.push({
-                        name: "catalog"
-                    });
+                    if (found.length) {
+                        return found[0];
+                    }
                 }
+
+                this.$router.push({
+                    name: "catalog"
+                });
             }
         }),
         imageUrl() {
@@ -62,26 +70,28 @@ export default {
             return !this.item.available;
         },
         popupTitle() {
-            if (this.soldOut) {
-                return "Sold out!"
-            } else{
-                return "Sold!";
-            }
+            const namespace = this.soldOut ? "soldOut" : "success";
+
+            return this.$t(`item.popup.${namespace}.title`);
         },
         popupMessage() {
-            if (this.soldOut) {
-                return "Better luck next time!";
-            } else {
-                return "Thank you for your purchase.";
-            }
+            const namespace = this.soldOut ? "soldOut" : "success";
+
+            return this.$t(`item.popup.${namespace}.message`);
         },
         popupVisible() {
             return !!this.attemptedPurchase;
         }
     },
     methods: {
+        ...mapActions(["load"]),
         purchase() {
             this.attemptedPurchase = true;
+        },
+    },
+    async mounted() {
+        if (this.neverLoaded) {
+            return this.load();
         }
     }
 }
