@@ -1,18 +1,28 @@
+import VueRouter from "vue-router";
+// Views
+import Navbar from "./views/Navbar";
 import Catalog from "./views/Catalog"
 import Item from "./views/Item";
-import VueRouter from "vue-router";
 
 const routes = [
     {
         path: "/",
         name: "catalog",
-        component: Catalog
+        components: {
+            navbar: Navbar,
+            default: Catalog
+        }
     },
     {
         path: "/items/:id",
         name: "item_view",
-        component: Item,
-        props: true
+        components: {
+            navbar: Navbar,
+            default: Item
+        },
+        props: {
+            default: true
+        }
     }
 ];
 

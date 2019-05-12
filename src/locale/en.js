@@ -42,5 +42,16 @@ export default {
                 message: "Sorry about that- we'll have it in stock again soon!"
             }
         }
+    },
+    navbar: {
+        brand: "Online Store",
+        links: {
+            desktops: "Desktops",
+            laptops: "Laptops"
+        },
+        search: {
+            placeholder: "Search for something",
+            button: "Search"
+        }
     }
 }
