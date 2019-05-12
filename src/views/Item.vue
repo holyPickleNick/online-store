@@ -60,11 +60,15 @@ export default {
             if (this.item && this.item.image) {
                 return this.item.image.url;
             }
+
+            return null;
         },
         imageAlt() {
             if (this.item && this.item.image) {
                 return this.item.image.alt;
             }
+
+            return null;
         },
         soldOut() {
             return !this.item.available;
