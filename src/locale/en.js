@@ -59,7 +59,7 @@ export default {
             laptop: "Laptops"
         },
         search: {
-            placeholder: "Search for something",
+            placeholder: "Search coming soon!",
             button: "Search"
         }
     }
