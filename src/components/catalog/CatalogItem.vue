@@ -1,15 +1,15 @@
 <template>
   <b-card
     :title="item.name"
-    :img-src="imageUrl"
-    :img-alt="imageAlt"
-    img-top
     tag="article"
     style="max-width: 20rem;"
     class="mb-2"
   >
+    <b-card-img-lazy
+      :src="imageUrl"
+      :alt="imageAlt"
+    />
     <b-card-text>{{ item.description }}</b-card-text>
-
     <slot>
       <router-link :to="{ name: 'item_view', params: { id: item.id } }">
         <b-button
@@ -30,6 +30,11 @@ export default {
       required: true
     }
   },
+  data() {
+    return {
+      imageLoading: true
+    }
+  },
   computed: {
     imageUrl() {
       if (this.item.image) {
@@ -45,6 +50,11 @@ export default {
       if (this.item.available) {
         return "outline-primary";
       }
+    }
+  },
+  methods: {
+    showImage() {
+      this.imageLoading = false;
     }
   }
 };
