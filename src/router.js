@@ -11,6 +11,15 @@ const routes = [
         components: {
             navbar: Navbar,
             default: Catalog
+        },
+        props: {
+            default(route) {
+                if (route.query) {
+                    return {
+                        type: route.query.type
+                    };
+                }
+            }
         }
     },
     {

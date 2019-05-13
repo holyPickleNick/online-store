@@ -8,8 +8,8 @@
         <b-navbar-toggle target="nav-collapse" />
         <b-collapse id="nav-collapse" is-nav>
             <b-navbar-nav>
-                <b-nav-item :to="{ name: 'catalog' }">{{ $t("navbar.links.desktops") }}</b-nav-item>
-                <b-nav-item :to="{ name: 'catalog' }">{{ $t("navbar.links.laptops") }}</b-nav-item>
+                <b-nav-item :to="{ name: 'catalog', query: { type: 'desktop'} }">{{ $t("navbar.links.desktop") }}</b-nav-item>
+                <b-nav-item :to="{ name: 'catalog', query: { type: 'laptop' } }">{{ $t("navbar.links.laptop") }}</b-nav-item>
             </b-navbar-nav>
             <b-navbar-nav class="ml-auto">
                 <b-nav-form>

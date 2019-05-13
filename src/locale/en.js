@@ -23,6 +23,15 @@ export default {
                     message: "Please contact customer service if you have any questions about our stock."
                 }
             }
+        },
+        filters: {
+            type: {
+                label: "Type",
+                options: {
+                    desktop: "Desktop",
+                    laptop: "Laptop"
+                }
+            }
         }
     },
     item: {
@@ -46,8 +55,8 @@ export default {
     navbar: {
         brand: "Online Store",
         links: {
-            desktops: "Desktops",
-            laptops: "Laptops"
+            desktop: "Desktops",
+            laptop: "Laptops"
         },
         search: {
             placeholder: "Search for something",

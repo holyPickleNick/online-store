@@ -1,6 +1,11 @@
 <template>
   <b-container>
     <h1>{{ $t("catalog.title") }}</h1>
+    <div class="mb-3" v-if="hasFilters">
+      <b-button v-if="type" class="mr-3 mb-3" @click="clearType">
+        &times; {{ $t("catalog.filters.type.label") }}: {{ $t(`catalog.filters.type.options.${type}`) }}
+      </b-button>
+    </div>
     <div v-if="loading" class="text-center">
       <b-spinner variant="primary" :label="$t('catalog.loading')" />
     </div>
@@ -35,6 +40,12 @@ export default {
     CatalogItem,
     ErrorJumbotron
   },
+  props: {
+    type: {
+      type: String,
+      default: null
+    }
+  },
   data() {
     return {
       itemsPerRow: 5
@@ -43,19 +54,35 @@ export default {
   computed: {
     ...mapGetters(["neverLoaded", "loading", "error"]),
     ...mapState({
-      items: state => state.data
+      items(state) {
+        let results = state.data;
+
+        if (this.type) {
+          results = results.filter(item => item.type === this.type);
+        }
+
+        return results;
+      }
     }),
     rowCount() {
       const items = this.items.length;
       let rows = Math.floor(items / (this.itemsPerRow));
 
       return (items % this.itemsPerRow > 0) ? rows + 1 : rows;
+    },
+    hasFilters() {
+      return this.type !== null;
     }
   },
   methods: {
     ...mapActions(["load"]),
     currentItem(row, col) {
       return this.items[col - 1 + ((row - 1) * this.itemsPerRow)];
+    },
+    clearType() {
+      this.$router.push({
+        name: "catalog"
+      });
     }
   },
   async mounted() {
